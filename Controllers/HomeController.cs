@@ -1,56 +1,11 @@
 ﻿using NewsBlogApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 
 namespace NewsBlogApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        //Создаём список новостей, подключаемся к БД
-        public static List<NewsModel> newsList = new List<NewsModel>();
-        static string connectionString = WebConfigurationManager.ConnectionStrings["NewsDBConnectionString"].ConnectionString;
-
-        public ActionResult NewsFeed()
-        {
-            //Проверка на авторизованного пользователя
-            if (Membership.GetUser() != null)
-            {
-                return RedirectToAction("NewsFeed", Roles.GetRolesForUser(Membership.GetUser().ToString())[0]);
-            }
-
-            //Очищаем список новостей и синхронизируемся с БД, затем заполняем список новостей
-            newsList.Clear();
-            DataSet newsDataset = new DataSet();
-            using (SqlConnection connect = new SqlConnection(connectionString))
-            {
-                connect.Open();
-                SqlDataAdapter newsAdapter = new SqlDataAdapter("SELECT * FROM NewsTable", connect);
-                newsAdapter.Fill(newsDataset, "NewsTable");
-            }
-            foreach (DataRow row in newsDataset.Tables["NewsTable"].Rows)
-            {
-                newsList.Add(new NewsModel()
-                {
-                    Id = (int)row["ID"],
-                    Article = row["Заголовок"].ToString(),
-                    Content = row["Содержание"].ToString(),
-                    Author = row["Автор"].ToString(),
-                    DateOfPublication = row["ДатаПубликации"].ToString()
-                });
-            }
-            newsList.Reverse();
-            return View();
-        }
-
         public ActionResult Login()
         {
             //страница авторизации (валидация) 
@@ -99,7 +54,6 @@ namespace NewsBlogApp.Controllers
                     ModelState.AddModelError("", "Ошибка при регистрации");
                 }
             }
-
             return View(model);
         }
     }
