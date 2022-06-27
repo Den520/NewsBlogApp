@@ -1,0 +1,19 @@
+﻿@model NewsBlogApp.Models.NewsModel
+@{
+    ViewBag.Title = "Новостная лента";
+}
+
+<h2>Новостная лента</h2>
+
+@foreach (var news in NewsBlogApp.Controllers.NewsmanController.newsList)
+{
+    <div class="news-block">
+        <div class="header-h1"><h1>@news.Article</h1></div>
+        <p class="multiline-content">@news.Content</p>
+        <footer>
+            <hr />
+            <p>Автор: @news.Author</p>
+            <p>Дата публикации: @news.DateOfPublication</p>
+        </footer>
+    </div>
+}

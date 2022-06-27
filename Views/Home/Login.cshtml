@@ -1,0 +1,48 @@
+﻿@model NewsBlogApp.Models.LogInModel
+
+@{
+    ViewBag.Title = "Добро пожаловать | NewsBlogApp";
+}
+
+<h2>Вход</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        @Html.ValidationSummary(true)
+
+        <legend>Введите логин и пароль</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(x => x.UserName)
+            @Html.ValidationMessageFor(x => x.UserName)
+        </div>
+
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+
+        <br />
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.RememberMe)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(x => x.RememberMe)
+            @Html.ValidationMessageFor(x => x.RememberMe)
+        </div>
+
+        <br />
+
+        <input type="submit" value="Войти" />
+    </fieldset>
+}

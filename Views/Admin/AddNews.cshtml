@@ -1,0 +1,25 @@
+﻿@model NewsBlogApp.Models.NewsModel
+@{
+    ViewBag.Title = "Публикация новости";
+}
+
+<h2>Публикация новости</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+
+    <div>
+        <p>Заголовок</p>
+        <p>@Html.TextBoxFor(x => x.Article, new { style = "width: 50%" })</p>
+    </div>
+    <br />
+    <div>
+        <p>Содержание</p>
+        <p>@Html.TextAreaFor(x => x.Content, 10, 150, new { style = "resize: vertical; min-height: 100px; width: 100%", placeholder = "Введите текст вашей статьи. Максимальная длина статьи составляет 5000 символов." })</p>
+    </div>
+    <br />
+    <div>Автор: @Membership.GetUser()</div>
+    <br />
+    <input type="submit" value="Опубликовать" />
+}
