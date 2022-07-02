@@ -18,6 +18,12 @@ namespace NewsBlogApp.Controllers
 
         public ActionResult NewsFeed()
         {
+            //Проверка на авторизованного пользователя
+            if (Membership.GetUser() != null & HttpContext.Request.RequestContext.RouteData.Values["controller"].ToString() == "Home")
+            {
+                return RedirectToAction("NewsFeed", Roles.GetRolesForUser(Membership.GetUser().ToString())[0]);
+            }
+
             //Очищаем список новостей и синхронизируемся с БД, затем заполняем список новостей
             newsList.Clear();
             DataSet newsDataset = new DataSet();
