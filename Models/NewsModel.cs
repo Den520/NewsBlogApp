@@ -26,6 +26,6 @@ namespace NewsBlogApp.Models
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Дата публикации")]
-        public string DateOfPublication { get; set; }
+        public DateTime DateOfPublication { get; set; }
     }
 }
