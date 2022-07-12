@@ -8,7 +8,6 @@ namespace NewsBlogApp.Controllers
     {
         public ActionResult Login()
         {
-            //страница авторизации (валидация) 
             return View();
         }
 
@@ -36,7 +35,7 @@ namespace NewsBlogApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)  //регистрация пользователя (с ролью репортёра)
+        public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {

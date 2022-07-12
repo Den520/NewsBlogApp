@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NewsBlogApp.Models
 {
@@ -26,6 +23,6 @@ namespace NewsBlogApp.Models
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Дата публикации")]
-        public string DateOfPublication { get; set; }
+        public DateTime DateOfPublication { get; set; }
     }
 }

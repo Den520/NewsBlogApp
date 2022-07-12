@@ -1,6 +1,4 @@
 ﻿using NewsBlogApp.Models;
-using System;
-using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace NewsBlogApp.Controllers
@@ -10,7 +8,7 @@ namespace NewsBlogApp.Controllers
     {
         public ActionResult EditNews(int Id)  //редактирование и удаление новости (валидация)
         {
-            return View(newsList.Find(news => news.Id == Id));
+            using (NewsContext db = new NewsContext()) { return View(db.News.Find(Id)); }
         }
 
         [HttpPost]
@@ -18,25 +16,24 @@ namespace NewsBlogApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (NewsContext db = new NewsContext())
                 {
-                    connect.Open();
-                    SqlCommand editNews = new SqlCommand(String.Format("UPDATE NewsTable SET Заголовок = '{0}', Содержание = '{1}' WHERE ID = {2}", model.Article.Trim(), model.Content.Trim(), model.Id), connect);
-                    editNews.ExecuteNonQuery();
+                    NewsModel oldModel = db.News.Find(model.Id);
+                    oldModel.Article = model.Article.Trim();
+                    oldModel.Content = model.Content.Trim();
+                    db.SaveChanges();
                 }
                 return RedirectToAction("NewsFeed");
             }
-
             return View(model);
         }
 
         public ActionResult DeleteNews(int Id)  //удаление новости
         {
-            using (SqlConnection connect = new SqlConnection(connectionString))
+            using (NewsContext db = new NewsContext())
             {
-                connect.Open();
-                SqlCommand deleteNews = new SqlCommand(String.Format("DELETE FROM NewsTable WHERE ID = {0}", Id), connect);
-                deleteNews.ExecuteNonQuery();
+                db.News.Remove(db.News.Find(Id));
+                db.SaveChanges();
             }
             return RedirectToAction("NewsFeed");
         }
