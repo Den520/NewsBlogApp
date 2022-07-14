@@ -22,38 +22,7 @@
     border-color: #fff
 }
 
-/*Заголовок новости (возможно стоит переименовать на более говорящее название (напр. article))*/
-.header-h1 {
-    position: relative;
-    margin-bottom: .5rem;
-  }
-.header-h1 h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 0;
-    padding-left: 3rem;
-    color: #e91e63;
-}
-.header-h1 h1::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 2.25rem;
-    height: 2.25rem;
-    background: #e91e63;
-}
-.header-h1 h1::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 2rem;
-    width: 100%;
-    height: .25rem;
-    background-color: #e91e63;
-}
-
-/*Меняю цвет фона*/
+/*Цвет фона страницы*/
 body {
     background: #ffdda7;
 }
@@ -65,8 +34,29 @@ body {
     padding: 10px;
 }
 
+/*Заголовок новости*/
+.news-article {
+    display: flex;
+    justify-content: space-between;
+}
+.news-article h1 {
+    margin: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: justify;
+    background-image: radial-gradient(circle, #eb4848, #77c1c8);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+.news-article img {
+    margin: 20px;
+    text-align: right;
+}
+
 /*Содержание новости*/
 .multiline-content {
+    font-size: 16px;
     white-space: break-spaces;
     margin: 15px;
 }
@@ -76,13 +66,13 @@ body {
     text-align: right;
     margin: auto;
 }
+
 /*Линия футера*/
 .news-block hr {
     width: 150px;
     margin: 0 0 0 auto;
     border-top: 1px solid #000000;
 }
-
 .layout-footer hr {
     margin-bottom: 10px;
     width: auto;

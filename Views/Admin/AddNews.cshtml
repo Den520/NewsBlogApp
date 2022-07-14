@@ -5,7 +5,7 @@
 
 <h2>Публикация новости</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddNews", "Admin", FormMethod.Post, new { enctype="multipart/form-data" }))
 {
     @Html.ValidationSummary()
 
@@ -20,6 +20,8 @@
     </div>
     <br />
     <div>Автор: @Membership.GetUser()</div>
+    <br />
+    <div>Обложка: <input type="file" name="fileCover" accept=".png,.jpg" /></div>
     <br />
     <input type="submit" value="Опубликовать" />
 }

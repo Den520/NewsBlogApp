@@ -8,7 +8,10 @@
 @foreach (var news in NewsBlogApp.Controllers.NewsmanController.newsList)
 {
     <div class="news-block">
-        <div class="header-h1"><h1>@news.Article</h1></div>
+        <div class="news-article">
+            <h1>@news.Article</h1>
+            <img src="~/Resources/NewsCovers/@(news.Id).png?@(new Random().Next())" />
+        </div>
         <p class="multiline-content">@news.Content</p>
         <footer>
             <hr />

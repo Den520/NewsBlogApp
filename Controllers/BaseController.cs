@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -47,19 +49,26 @@ namespace NewsBlogApp.Controllers
 
         [Authorize(Roles = "Admin, Newsman")]
         [HttpPost]
-        public ActionResult AddNews(NewsModel model)
+        public ActionResult AddNews(NewsModel model, HttpPostedFileBase fileCover)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid & fileCover != null)
             {
+                //Добавление новости в БД
                 using (NewsContext db = new NewsContext())
                 {
                     model.Article = model.Article.Trim();
                     model.Content = model.Content.Trim();
                     model.Author = Membership.GetUser().ToString();
                     model.DateOfPublication = DateTime.Now;
-                    db.News.Add(model);
+                    model.Id = db.News.Add(model).Id;
                     db.SaveChanges();
                 }
+
+                //Сохранение обложки в хранилище
+                Bitmap bitmap = new Bitmap(Image.FromStream(fileCover.InputStream));
+                bitmap = new Bitmap(bitmap, bitmap.Width * 180 / bitmap.Height, 180);
+                bitmap.Save(Server.MapPath($"~/Resources/NewsCovers/{model.Id}.png"));
+
                 return RedirectToAction("NewsFeed");
             }
             return View(model);
