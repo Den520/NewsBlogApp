@@ -18,7 +18,6 @@ namespace NewsBlogApp.Controllers
         { }
     }
 
-    [HandleError(ExceptionType = typeof(Exception), View = "~/Views/Shared/Error.cshtml")]
     public abstract partial class BaseController : Controller
     {
         public static List<NewsModel> newsList;  //Создаём список новостей
