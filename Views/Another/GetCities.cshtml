@@ -1,0 +1,46 @@
+﻿@model NewsBlogApp.Models.CityModel[]
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+
+        <legend>Заполните список из трёх городов</legend>
+
+        @for (int i = 0; i < 3; i++)
+        {
+            <div>
+                @Html.LabelFor(x => x[i].CityName)
+                @Html.TextBoxFor(x => x[i].CityName)
+                @Html.ValidationMessageFor(x => x[i].CityName)
+            </div>
+
+            <div>
+                @Html.LabelFor(x => x[i].PopulationSize)
+                @Html.TextBoxFor(x => x[i].PopulationSize)
+                @Html.ValidationMessageFor(x => x[i].PopulationSize)
+            </div>
+
+            <br />
+        }
+
+        <input type="submit" value="Отправить" />
+    </fieldset>
+}
+
+@if (Model != null)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        <div>
+            Название города: @Model[i].CityName
+        </div>
+        <div>
+            Численность города: @Model[i].PopulationSize
+        </div>
+        <br />
+    }
+}

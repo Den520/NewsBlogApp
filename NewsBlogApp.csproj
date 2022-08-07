@@ -151,12 +151,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AnotherController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsmanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\NewsFeedActionFilter.cs" />
+    <Compile Include="Infrastructure\AnotherNewsModelBinder.cs" />
+    <Compile Include="Infrastructure\CustomHelper.cs" />
+    <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -170,6 +175,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\loading_spinner.gif" />
     <Content Include="Resources\userAvatar.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -206,6 +212,10 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Newsman\_ViewStart.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
+    <Content Include="Views\Another\NewsFeed.cshtml" />
+    <Content Include="Views\Another\_Layout.cshtml" />
+    <Content Include="Views\Another\GetCities.cshtml" />
+    <Content Include="Views\Another\_ItemsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

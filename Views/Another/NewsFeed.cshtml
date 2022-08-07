@@ -1,0 +1,65 @@
+﻿@model List<NewsBlogApp.Models.NewsModel>
+@using NewsBlogApp.Infrastructure
+@{
+    Layout = "~/Views/Another/_Layout.cshtml";
+    ViewBag.Title = "Новостная лента";
+}
+
+<h2>Новостная лента</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        Отфильтровать автора по роли:
+        @Html.DropDownList("filterValue", new SelectList(new string[] { "Все", "Admin", "Newsman" }))
+        <input type="submit" value="Отфильтровать" />
+    </div>
+}
+
+<div id="scrollList">
+    @Html.Partial("_ItemsPartial")
+</div>
+
+<div id="loading"><img src='@Url.Content("~/Resources/loading_spinner.gif")'></div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript">
+$(function () {
+
+    $('div#loading').hide();
+
+    var page = 0;
+    var _inCallback = false;
+    function loadItems() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Another/NewsFeed/',
+                data: { filterValue: '@ViewBag.FilterValue', page: page },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#scrollList").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    }
+    // обработка события скроллинга
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+            loadItems();
+        }
+    });
+})
+</script>

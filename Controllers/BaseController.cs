@@ -1,4 +1,5 @@
-﻿using NewsBlogApp.Models;
+﻿using NewsBlogApp.Infrastructure;
+using NewsBlogApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,18 +19,13 @@ namespace NewsBlogApp.Controllers
         { }
     }
 
-    public abstract partial class BaseController : Controller
+    public class BaseController : Controller
     {
         public static List<NewsModel> newsList;  //Создаём список новостей
 
+        [AnotherActionFilter]
         public ActionResult NewsFeed()
         {
-            //Проверка на авторизованного пользователя
-            if (Membership.GetUser() != null & HttpContext.Request.RequestContext.RouteData.Values["controller"].ToString() == "Home")
-            {
-                return RedirectToAction("NewsFeed", Roles.GetRolesForUser(Membership.GetUser().ToString())[0]);
-            }
-
             //Заполняем список новостей
             using (NewsContext db = new NewsContext())
             {

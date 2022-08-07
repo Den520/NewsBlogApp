@@ -1,0 +1,7 @@
+﻿@model List<NewsBlogApp.Models.NewsModel>
+@using NewsBlogApp.Infrastructure
+
+@foreach (var news in Model)
+{
+    @Html.CreateNewsBlock(news)
+}
